@@ -5,4 +5,19 @@ html {
 body {
   font-size: 13px;
   line-height: 20px;
+  padding: 40px;
+  background: #e2e2e2;
+}
+
+.sidebar {
+	width: 400px;
+	display: inline-block;
+}
+
+.content {
+	margin-left: 40px;
+	text-align: center;
+	width: calc(100vw - 560px);
+	display: inline-block;
+	vertical-align: top;
 }

@@ -11,7 +11,7 @@ export class Tag {
     }
 }
 
-class TagsStore {
+export class TagStore {
     @observable tags = [];
     tagId = 0;
 
@@ -23,6 +23,8 @@ class TagsStore {
         this.tags.push(tag);
         return tag;
     }
-}
 
-export default new TagsStore();
+    findTagByName(name) {
+        return this.tags.find(tag => tag.name === name);
+    }
+}
