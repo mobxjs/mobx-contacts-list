@@ -4,8 +4,6 @@ import {observable, computed, autorunAsync} from "mobx";
 const STORAGE_PREFIX = "mobx-contacts.";
 
 class Contact {
-	store;
-	id;
 	@observable title;
 	@observable firstName;
 	@observable lastName;
@@ -111,7 +109,7 @@ export class ContactStore {
 						this.pendingRequestCount--;
 					}
 				});
-		}, /*100*/0); // additional delay, for showing async
+		}, 2000); // additional delay, for showing async
 	}
 
 	loadContacts() {

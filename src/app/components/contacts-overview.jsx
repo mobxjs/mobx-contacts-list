@@ -42,27 +42,24 @@ export const ContactsOverview = observer(({contactStore, viewState}) =>
 );
 
 const ContactEntryView = observer(({contact, viewState}) =>
-	<List>
-		<ListItem
-			secondaryTextLines={2}
-			onClick={() => viewState.selectContact(contact) }
-			leftAvatar={
-				<Avatar src={contact.picture.thumbnail} />
-			}
-			primaryText={contact.displayName}
-			secondaryText={
-				contact.tags.map(tag => <FlatButton
-					key={tag.id}
-					label={tag.name}
-					onClick={(e) => {
-						e.stopPropagation();
-						viewState.selectTag(tag)
-					} }
-				/>)
-			}
-			style={{ backgroundColor: viewState.selectContact === contact ? 'rgba(0,0,0,0.2)' : null }}
-		/>
-	</List>
+	<ListItem
+		onClick={() => viewState.selectContact(contact) }
+		className={`contact ${viewState.selectedContact === contact ? 'selected' : ''}`}
+	>
+		<Avatar src={contact.picture.thumbnail} className="avatar"/>
+		{contact.displayName}
+		<br/>
+		{contact.tags.map(tag => <input
+			key={tag.id}
+			onClick={(e) => {
+				e.stopPropagation();
+				viewState.selectTag(tag)
+			} }
+			type="button"
+			value={tag.name}
+			className="tag-preview"
+		/>)}
+	</ListItem>
 );
 
 const loaderStyle = {

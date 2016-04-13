@@ -21,3 +21,27 @@ body {
 	display: inline-block;
 	vertical-align: top;
 }
+
+.selected {
+    background-color: rgba(0,0,0,0.2)
+}
+
+.contact {
+    
+}
+
+.avatar {
+    float: left;
+    margin-right: 4px;   
+}
+
+.tag-preview {
+    margin: 2px 4px 0px 0px;
+    background: cornflowerblue;
+    font-weight: bold;
+    border-radius: 2px;
+    padding: 2px 4px;
+    border: none;
+    color: white;
+    cursor: pointer;
+}

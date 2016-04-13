@@ -13,7 +13,7 @@ export const TagsOverview = observer(({tagStore, viewState}) =>
 				key={tag.id}
 				primaryText={tag.name}
 				onClick={() => viewState.selectTag(tag) }
-				style={{ backgroundColor: viewState.selectTag === tag ? 'rgba(0,0,0,0.2)' : null }}
+				className={viewState.selectedTag === tag ? 'selected' : null}
 			/>
 		) }
 	</List>
