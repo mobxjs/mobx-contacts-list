@@ -44,7 +44,7 @@ export const ContactsOverview = observer(({contactStore, viewState}) =>
 const ContactEntryView = observer(({contact, viewState}) =>
 	<ListItem
 		onClick={() => viewState.selectContact(contact) }
-		className={`contact ${viewState.selectedContact === contact ? 'selected' : ''}`}
+		className={`contact ${viewState.selection === contact ? 'selected' : ''}`}
 	>
 		<Avatar src={contact.picture.thumbnail} className="avatar"/>
 		{contact.displayName}

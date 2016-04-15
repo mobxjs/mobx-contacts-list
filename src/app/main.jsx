@@ -14,6 +14,8 @@ import CardActions from 'material-ui/lib/card/card-actions';
 import CardTitle from 'material-ui/lib/card/card-title';
 
 import {ViewState} from './stores/view-state';
+import {isTag} from './stores/tags';
+import {isContact} from './stores/contacts';
 import {ContactsOverview} from './components/contacts-overview';
 import {TagsOverview} from './components/tags-overview';
 import {ContactView} from './components/contact-view';
@@ -39,13 +41,13 @@ class Main extends React.Component {
 		const {viewState} = this;
 
 		let content;
-		if (viewState.selectedContact !== null) {
+		if (isContact(viewState.selection)) {
 			content = <ContactView
-							contact={viewState.selectedContact}
+							contact={viewState.selection}
 							viewState={viewState}
 					  />;
-		} else if (viewState.selectedTag !== null) {
-			content = <TagView tag={viewState.selectedTag} />;
+		} else if (isTag(viewState.selection)) {
+			content = <TagView tag={viewState.selection} />;
 		} else {
 			content = <span>"Please select a contact or tag"</span>
 		}

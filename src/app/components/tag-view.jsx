@@ -21,7 +21,7 @@ export class TagView extends React.Component {
 			<CardText>
 				<TextField
 					floatingLabelText="Tag name"
-					defaultValue={tag.name}
+					value={tag.name}
 					onChange={e => tag.name = e.target.value }
 					/>
 			</CardText>

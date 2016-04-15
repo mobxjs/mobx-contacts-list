@@ -28,3 +28,7 @@ export class TagStore {
         return this.tags.find(tag => tag.name === name);
     }
 }
+
+export function isTag(object) {
+	return object instanceof Tag;
+}

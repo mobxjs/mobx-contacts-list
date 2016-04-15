@@ -8,8 +8,7 @@ const TAG_PATH = "#!tag/"
  * what element is currently selected?
  */
 export class ViewState {
-	@observable selectedContact = null;
-	@observable selectedTag = null;
+	@observable selection = null;
 
 	constructor(contactStore, tagStore) {
 		this.contactStore = contactStore;
@@ -41,21 +40,18 @@ export class ViewState {
 		if (!contact)
 			return void this.selectNothing();
 		window.history.pushState(null, contact.username, CONTACT_PATH + contact.username);
-		this.selectedContact = contact;
-		this.selectedTag = null;
+		this.selection = contact;
 	}
 
 	selectTag = (tag) => {
 		if (!tag)
 			return void this.selectNothing();
 		window.history.pushState(null, tag.name, TAG_PATH + tag.name);
-		this.selectedContact = null;
-		this.selectedTag = tag;
+		this.selection = tag;
 	}
 
 	selectNothing = () => {
 		window.history.pushState(null, null, '#');
-		this.selectedContact = null;
-		this.selectedTag = null;
+		this.selection = null;
 	}
 }
