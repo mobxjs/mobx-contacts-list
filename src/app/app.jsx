@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import Main from './main'; // Our custom react component
+import Main from './components/main';
 
-import {ContactStore} from './stores/contacts';
-import {TagStore} from './stores/tags';
+import {ContactStore} from './stores/contact-store';
+import {TagStore} from './stores/tag-store';
 
 //Needed for onTouchTap
 injectTapEventPlugin();

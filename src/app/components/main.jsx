@@ -13,13 +13,14 @@ import Card from 'material-ui/lib/card/card';
 import CardActions from 'material-ui/lib/card/card-actions';
 import CardTitle from 'material-ui/lib/card/card-title';
 
-import {ViewState} from './stores/view-state';
-import {isTag} from './stores/tags';
-import {isContact} from './stores/contacts';
-import {ContactsOverview} from './components/contacts-overview';
-import {TagsOverview} from './components/tags-overview';
-import {ContactView} from './components/contact-view';
-import {TagView} from './components/tag-view';
+import {ViewState} from '../stores/view-state';
+import {isTag} from '../stores/tag-store';
+import {isContact} from '../stores/contact-store';
+
+import {ContactsOverview} from './contacts-overview';
+import {TagsOverview} from './tags-overview';
+import {ContactView} from './contact-view';
+import {TagView} from './tag-view';
 
 const muiTheme = getMuiTheme({
 	palette: {
