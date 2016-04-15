@@ -1,4 +1,6 @@
-import {observable, when} from 'mobx';
+import {observable, when, autorun} from 'mobx';
+import {isContact} from './contact-store';
+import {isTag} from './tag-store';
 
 const CONTACT_PATH = "#!contact/";
 const TAG_PATH = "#!tag/"
@@ -9,6 +11,7 @@ const TAG_PATH = "#!tag/"
  */
 export class ViewState {
 	@observable selection = null;
+	processingHashChange = false;
 
 	constructor(contactStore, tagStore) {
 		this.contactStore = contactStore;
@@ -23,10 +26,33 @@ export class ViewState {
 			() => contactStore.hasLoadedInitialData,
 			() => this.onHashChange()
 		)
+		
+		// When selection changes, push to history
+		autorun(() => {
+			if (isContact(this.selection))
+				this.pushHistory(CONTACT_PATH + this.selection.username);
+			else if (isTag(this.selection))
+				this.pushHistory(TAG_PATH + this.selection.name);
+			else
+				this.pushHistory('#');
+		})
+	}
+
+	selectContact = (contact) => {
+		this.selection = contact;
+	}
+
+	selectTag = (tag) => {
+		this.selection = tag;
+	}
+
+	selectNothing = () => {
+		this.selection = null;
 	}
 
 	onHashChange = () => {
 		const hash = window.location.hash;
+		this.processingHashChange = true; // prevent adding new history entry!
 		if (hash.indexOf(CONTACT_PATH) === 0) {
 			this.selectContact(this.contactStore.findContactByName(hash.substr(CONTACT_PATH.length)));
 		} else if (hash.indexOf(TAG_PATH) === 0) {
@@ -34,24 +60,12 @@ export class ViewState {
 		} else {
 			this.selectNothing();
 		}
+		this.processingHashChange = false;
 	}
 
-	selectContact = (contact) => {
-		if (!contact)
-			return void this.selectNothing();
-		window.history.pushState(null, contact.username, CONTACT_PATH + contact.username);
-		this.selection = contact;
-	}
-
-	selectTag = (tag) => {
-		if (!tag)
-			return void this.selectNothing();
-		window.history.pushState(null, tag.name, TAG_PATH + tag.name);
-		this.selection = tag;
-	}
-
-	selectNothing = () => {
-		window.history.pushState(null, null, '#');
-		this.selection = null;
+	pushHistory(path) {
+		if (!this.processingHashChange) {
+			window.history.pushState(null, null, path);
+		}
 	}
 }
