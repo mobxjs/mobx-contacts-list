@@ -13,8 +13,6 @@ import Card from 'material-ui/lib/card/card';
 import CardActions from 'material-ui/lib/card/card-actions';
 import CardTitle from 'material-ui/lib/card/card-title';
 
-import {ViewState} from '../stores/view-state';
-
 import {ContactsOverview} from './contacts-overview';
 import {TagsOverview} from './tags-overview';
 
@@ -26,11 +24,6 @@ const muiTheme = getMuiTheme({
 
 @observer
 class Main extends React.Component {
-	componentWillMount() {
-		this.props.contactStore.loadContacts();
-		this.viewState = new ViewState(this.props.contactStore, this.props.tagStore);
-	}
-
 	render() {
 		const {contactStore, tagStore, viewState, stateNavigator} = this.props;
 

@@ -22,6 +22,7 @@ const stateNavigator = new StateNavigator([
     {key: 'contact', route: 'contact/{name}'},
     {key: 'tag', route: 'tag/{name}'}
 ]);
+contactStore.loadContacts();
 
 ReactDOM.render(
 	<Main
