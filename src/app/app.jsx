@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import Main from './components/main';
+import {ContactView} from './components/contact-view';
+import {TagView} from './components/tag-view';
 import {StateNavigator} from 'navigation';
 import {when} from 'mobx';
 
@@ -15,21 +17,21 @@ injectTapEventPlugin();
 const tagStore = new TagStore();
 const contactStore = new ContactStore(tagStore);
 const viewState = new ViewState();
+const stateNavigator = new StateNavigator([
+    {key: 'home', route: ''},
+    {key: 'contact', route: 'contact/{name}'},
+    {key: 'tag', route: 'tag/{name}'}
+]);
 
 ReactDOM.render(
 	<Main
 		contactStore={contactStore}
 		tagStore={tagStore}
         viewState={viewState}
+        stateNavigator={stateNavigator}
 	/>,
 	document.getElementById('app')
 );
-
-const stateNavigator = new StateNavigator([
-    {key: 'home', route: ''},
-    {key: 'contact', route: 'contact/{name}'},
-    {key: 'tag', route: 'tag/{name}'}
-]);
 
 stateNavigator.states.home.navigated = () => {
     ReactDOM.render(
@@ -43,7 +45,7 @@ stateNavigator.states.contact.navigated = (data) => {
     ReactDOM.render(
         <ContactView
             contact={viewState.selection}
-            viewState={viewState}
+            stateNavigator={stateNavigator}
         />,
         document.getElementById('content')
     );

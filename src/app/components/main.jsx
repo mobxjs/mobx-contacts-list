@@ -19,8 +19,6 @@ import {isContact} from '../stores/contact-store';
 
 import {ContactsOverview} from './contacts-overview';
 import {TagsOverview} from './tags-overview';
-import {ContactView} from './contact-view';
-import {TagView} from './tag-view';
 
 const muiTheme = getMuiTheme({
 	palette: {
@@ -36,7 +34,7 @@ class Main extends React.Component {
 	}
 
 	render() {
-		const {contactStore, tagStore, viewState} = this.props;
+		const {contactStore, tagStore, viewState, stateNavigator} = this.props;
 
 		return (
 			<MuiThemeProvider muiTheme={muiTheme}>
@@ -44,8 +42,16 @@ class Main extends React.Component {
 					<DevTools />
 					<Card className="sidebar">
 						<CardTitle title="My Contacts" />
-						<ContactsOverview contactStore={contactStore} viewState={viewState} />
-						<TagsOverview tagStore={tagStore} viewState={viewState} />
+						<ContactsOverview
+                            contactStore={contactStore}
+                            viewState={viewState}
+                            stateNavigator={stateNavigator}
+                        />
+						<TagsOverview
+                            tagStore={tagStore}
+                            viewState={viewState}
+                            stateNavigator={stateNavigator}
+                        />
 					</Card>
 					<div id="content" className="content">
 					</div>
