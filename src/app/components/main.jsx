@@ -34,15 +34,15 @@ class Main extends React.Component {
 					<Card className="sidebar">
 						<CardTitle title="My Contacts" />
 						<ContactsOverview
-                            contactStore={contactStore}
-                            viewState={viewState}
-                            stateNavigator={stateNavigator}
-                        />
+							contactStore={contactStore}
+							viewState={viewState}
+							stateNavigator={stateNavigator}
+						/>
 						<TagsOverview
-                            tagStore={tagStore}
-                            viewState={viewState}
-                            stateNavigator={stateNavigator}
-                        />
+							tagStore={tagStore}
+							viewState={viewState}
+							stateNavigator={stateNavigator}
+						/>
 					</Card>
 					<div id="content" className="content">
 					</div>

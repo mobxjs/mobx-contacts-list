@@ -21,14 +21,14 @@ ReactDOM.render(
 	<Main
 		contactStore={contactStore}
 		tagStore={tagStore}
-        viewState={viewState}
-        stateNavigator={stateNavigator}
+		viewState={viewState}
+		stateNavigator={stateNavigator}
 	/>,
 	document.getElementById('app')
 );
 
 contactStore.loadContacts();
 when(
-    () => contactStore.hasLoadedInitialData,
-    () => stateNavigator.start()
+	() => contactStore.hasLoadedInitialData,
+	() => stateNavigator.start()
 )

@@ -34,7 +34,7 @@ export class ContactsOverview extends Component {
 					contact={contact}
 					key={contact.id}
 					viewState={viewState}
-                    stateNavigator={stateNavigator}
+					stateNavigator={stateNavigator}
 				/>
 			) }
 		</List>
@@ -43,6 +43,6 @@ export class ContactsOverview extends Component {
 
 const loaderStyle = {
 	position: 'relative',
-    float: 'right',
-    marginRight: 30
+	float: 'right',
+	marginRight: 30
 }
