@@ -11,7 +11,7 @@ import ContactEntryView from './contact-entry-view';
 @observer
 export class ContactsOverview extends Component {
 	render() {
-		const {contactStore, viewState} = this.props;
+		const {contactStore, viewState, stateNavigator} = this.props;
 		return <List>
 			<RaisedButton
 				label="Add Contact"
@@ -34,6 +34,7 @@ export class ContactsOverview extends Component {
 					contact={contact}
 					key={contact.id}
 					viewState={viewState}
+					stateNavigator={stateNavigator}
 				/>
 			) }
 		</List>
@@ -42,6 +43,6 @@ export class ContactsOverview extends Component {
 
 const loaderStyle = {
 	position: 'relative',
-    float: 'right',
-    marginRight: 30
+	float: 'right',
+	marginRight: 30
 }

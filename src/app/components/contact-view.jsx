@@ -69,7 +69,7 @@ export class ContactView extends React.Component {
 	}
 
 	onDelete = () => {
-		this.props.viewState.selectNothing();
+		this.props.stateNavigator.navigate('home');
 		this.props.contact.delete();
 	}
 
