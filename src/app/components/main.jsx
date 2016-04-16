@@ -30,28 +30,13 @@ const muiTheme = getMuiTheme({
 
 @observer
 class Main extends React.Component {
-	viewState;
-
 	componentWillMount() {
 		this.props.contactStore.loadContacts();
 		this.viewState = new ViewState(this.props.contactStore, this.props.tagStore);
 	}
 
 	render() {
-		const {contactStore, tagStore} = this.props;
-		const {viewState} = this;
-
-		let content;
-		if (isContact(viewState.selection)) {
-			content = <ContactView
-							contact={viewState.selection}
-							viewState={viewState}
-					  />;
-		} else if (isTag(viewState.selection)) {
-			content = <TagView tag={viewState.selection} />;
-		} else {
-			content = <span>"Please select a contact or tag"</span>
-		}
+		const {contactStore, tagStore, viewState} = this.props;
 
 		return (
 			<MuiThemeProvider muiTheme={muiTheme}>
@@ -62,8 +47,7 @@ class Main extends React.Component {
 						<ContactsOverview contactStore={contactStore} viewState={viewState} />
 						<TagsOverview tagStore={tagStore} viewState={viewState} />
 					</Card>
-					<div className="content">
-						{content}
+					<div id="content" className="content">
 					</div>
 				</div>
 			</MuiThemeProvider>
