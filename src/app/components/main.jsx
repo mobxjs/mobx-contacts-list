@@ -14,8 +14,6 @@ import CardActions from 'material-ui/lib/card/card-actions';
 import CardTitle from 'material-ui/lib/card/card-title';
 
 import {ViewState} from '../stores/view-state';
-import {isTag} from '../stores/tag-store';
-import {isContact} from '../stores/contact-store';
 
 import {ContactsOverview} from './contacts-overview';
 import {TagsOverview} from './tags-overview';
