@@ -1,10 +1,10 @@
 {
-  "name": "material-ui-example-webpack",
-  "version": "0.15.0-alpha.1",
-  "description": "Sample project that uses material-ui",
+  "name": "mobx-contact-list",
+  "version": "0.0.1",
+  "description": "MobX sample project",
   "repository": {
     "type": "git",
-    "url": "https://github.com/callemall/material-ui.git"
+    "url": "https://github.com/mweststrate/mobx-contact-list.git"
   },
   "scripts": {
     "start": "webpack-dev-server --config webpack-dev-server.config.js --progress --inline --colors",
@@ -36,6 +36,7 @@
     "mobx-react-devtools": "^4.0.2",
     "react": "^0.14.3",
     "react-dom": "^0.14.3",
+    "react-hot-loader": "^2.0.0-alpha-4",
     "react-tap-event-plugin": "^0.2.1",
     "superagent": "^1.8.3"
   }
