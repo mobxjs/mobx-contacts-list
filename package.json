@@ -30,12 +30,12 @@
     "webpack-dev-server": "^1.14.0"
   },
   "dependencies": {
-    "material-ui": "^0.15.0-alpha.1",
+    "material-ui": "0.15.0-alpha.1",
     "mobx": "^2.2.0",
     "mobx-react": "^3.3.0",
     "mobx-react-devtools": "^4.2.0",
-    "react": "^0.14.3",
-    "react-dom": "^0.14.3",
+    "react": "0.14.3",
+    "react-dom": "0.14.3",
     "react-hot-loader": "^2.0.0-alpha-4",
     "react-tap-event-plugin": "^0.2.1",
     "superagent": "^1.8.3"
