@@ -7,7 +7,7 @@ import Avatar from 'material-ui/lib/avatar';
 const ContactEntryView = ({contact, viewState}) => (
 	<ListItem
 		onClick={() => viewState.selectContact(contact) }
-		className={`contact ${viewState.selection === contact ? 'selected' : ''}`}
+		className={`contact ${viewState.isSelected(contact) ? 'selected' : ''}`}
 	>
 		<Avatar src={contact.picture.thumbnail} className="avatar"/>
 		{contact.displayName}

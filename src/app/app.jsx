@@ -6,6 +6,10 @@ import Main from './components/main';
 import {ContactStore} from './stores/contact-store';
 import {TagStore} from './stores/tag-store';
 
+import {useStrict} from 'mobx';
+
+useStrict(true);
+
 //Needed for onTouchTap
 injectTapEventPlugin();
 

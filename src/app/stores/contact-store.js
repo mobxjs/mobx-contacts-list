@@ -1,5 +1,5 @@
 import * as superagent from 'superagent';
-import {observable, computed, autorunAsync} from "mobx";
+import {observable, computed, autorunAsync, action} from "mobx";
 
 const STORAGE_PREFIX = "mobx-contacts.";
 
@@ -31,7 +31,6 @@ class Contact {
 
 		// automatically store item in local storage, debounce each second
 		this._saveHandle = autorunAsync(() => {
-			console.log("Storing " + this.id);
 			window.localStorage.setItem(STORAGE_PREFIX + this.id, JSON.stringify(this.asJSON));
 		}, 1000);
 	}
@@ -59,19 +58,19 @@ class Contact {
 		return this.store.tagStore.tags.filter(tag => this.tags.indexOf(tag) === -1);
 	}
 
-	addTag(name) {
+	@action	addTag(name) {
 		this.tags.push(this.store.tagStore.findOrCreateTag(name));
 	}
 
-	updateFirstName(firstName) {
+	@action	updateFirstName(firstName) {
 		this.firstName = firstName;
 	}
 
-	updateLastName(lastName) {
+	@action	updateLastName(lastName) {
 		this.lastName = lastName;
 	}
 
-	delete() {
+	@action	delete() {
 		this._saveHandle(); // stop saving future changes
 		this.store.removeContact(this);
 	}
@@ -91,28 +90,25 @@ export class ContactStore {
 		return this.pendingRequestCount > 0;
 	}
 
-	createRandomContact() {
+	@action	createRandomContact() {
 		this.pendingRequestCount++;
-		setTimeout(() => {
-			superagent
-				.get('https://randomuser.me/api/')
-				.set('Accept', 'application/json')
-				.end((error, results) => {
-					if (error)
-						console.error(error);
-					else {
-						//const data = results.body.results[0].user;
-						const data = JSON.parse(results.text).results[0];
-						const contact = new Contact(this, data.dob, data.name, data.login.username, data.picture)
-						contact.addTag('random-user');
-						this.contacts.push(contact);
-						this.pendingRequestCount--;
-					}
-				});
-		}, 2000); // additional delay, for showing async
+		superagent
+			.get('https://randomuser.me/api/')
+			.set('Accept', 'application/json')
+			.end(action("createRandomContact-callback", (error, results) => {
+				if (error)
+					console.error(error);
+				else {
+					const data = JSON.parse(results.text).results[0];
+					const contact = new Contact(this, data.dob, data.name, data.login.username, data.picture)
+					contact.addTag('random-user');
+					this.contacts.push(contact);
+					this.pendingRequestCount--;
+				}
+			}));
 	}
 
-	loadContacts() {
+	@action	loadContacts() {
 		for (let i = 0; i < window.localStorage.length; i++) {
 			const key = window.localStorage.key(i);
 			if (key.indexOf(STORAGE_PREFIX) === 0) {
@@ -131,6 +127,11 @@ export class ContactStore {
 		this.hasLoadedInitialData = true;
 	}
 
+	@action	removeContact(contact) {
+		window.localStorage.removeItem(STORAGE_PREFIX + contact.id);
+		this.contacts.remove(contact);
+	}
+
 	getContacts() {
 		return this.contacts.slice();
 	}
@@ -139,10 +140,6 @@ export class ContactStore {
 		return this.contacts.find(contact => contact.username === name);
 	}
 
-	removeContact(contact) {
-		window.localStorage.removeItem(STORAGE_PREFIX + contact.id);
-		this.contacts.remove(contact);
-	}
 }
 
 function capitalizeFirstLetter(string) {

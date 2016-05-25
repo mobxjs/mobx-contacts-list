@@ -5,6 +5,7 @@
 
 import React from 'react';
 import {observer} from 'mobx-react';
+import {action} from 'mobx';
 import Card from 'material-ui/lib/card/card';
 import CardTitle from 'material-ui/lib/card/card-title';
 import CardText from 'material-ui/lib/card/card-text';
@@ -22,9 +23,13 @@ export class TagView extends React.Component {
 				<TextField
 					floatingLabelText="Tag name"
 					value={tag.name}
-					onChange={e => tag.name = e.target.value }
+					onChange={this.onChangeTagName}
 					/>
 			</CardText>
 		</Card>
+	}
+
+	@action	onChangeTagName = (e) => {
+		tag.name = e.target.value;
 	}
 }

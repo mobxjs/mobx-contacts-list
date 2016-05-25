@@ -1,4 +1,4 @@
-import {observable, when, autorun} from 'mobx';
+import {observable, when, autorun, action, computed} from 'mobx';
 import {isContact} from './contact-store';
 import {isTag} from './tag-store';
 
@@ -38,19 +38,23 @@ export class ViewState {
 		})
 	}
 
-	selectContact = (contact) => {
+	isSelected(contact) {
+		return computed(() => this.selection === contact).get();
+	}
+
+	@action	selectContact = (contact) => {
 		this.selection = contact;
 	}
 
-	selectTag = (tag) => {
+	@action	selectTag = (tag) => {
 		this.selection = tag;
 	}
 
-	selectNothing = () => {
+	@action	selectNothing = () => {
 		this.selection = null;
 	}
 
-	onHashChange = () => {
+	@action	onHashChange = () => {
 		const hash = window.location.hash;
 		this.processingHashChange = true; // prevent adding new history entry!
 		if (hash.indexOf(CONTACT_PATH) === 0) {

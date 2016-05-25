@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import {observable} from 'mobx';
+import {observable, action} from 'mobx';
 import {observer} from 'mobx-react';
 import FlatButton from 'material-ui/lib/flat-button';
 import Avatar from 'material-ui/lib/avatar';
@@ -42,12 +42,12 @@ export class ContactView extends React.Component {
 				<TextField
 					floatingLabelText="First name"
 					value={this.firstNameValue}
-					onChange={e => this.firstNameValue = e.target.value}
+					onChange={this.onChangeFirstName}
 				/>
 				<TextField
 					floatingLabelText="Last name"
 					value={this.lastNameValue}
-					onChange={e => this.lastNameValue = e.target.value}
+					onChange={this.onChangeLastName}
 				/>
 				<br/>
 				<h2>Tags</h2>
@@ -68,28 +68,36 @@ export class ContactView extends React.Component {
 		</Card>
 	}
 
-	onDelete = () => {
+	@action	onChangeFirstName = (e) => {
+		this.firstNameValue = e.target.value;
+	}
+
+	@action	onChangeLastName = (e) => {
+		this.lastNameValue = e.target.value;
+	}
+
+	@action	onDelete = () => {
 		this.props.viewState.selectNothing();
 		this.props.contact.delete();
 	}
 
-	onSave = () => {
+	@action	onSave = () => {
 		this.props.contact.updateFirstName(this.firstNameValue);
 		this.props.contact.updateLastName(this.lastNameValue);
 	}
 
-	onCancel = () => {
+	@action	onCancel = () => {
 		this.resetInputValues();
 	}
 
 	getAvailableTags = () => this.props.contact.getAvailableTags().map(tag => tag.name);
 
-	onSelectTag = (value) => {
+	@action	onSelectTag = (value) => {
 		this.props.contact.addTag(value); 
 		this.tagId++;
 	}
 
-	resetInputValues(props) {
+	@action	resetInputValues(props) {
 		this.firstNameValue = props.contact.firstName;
 		this.lastNameValue = props.contact.lastName;
 		this.tagId++;

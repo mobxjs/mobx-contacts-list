@@ -1,5 +1,5 @@
 import * as superagent from 'superagent';
-import {observable, computed} from "mobx";
+import {observable, computed, action} from "mobx";
 
 export class Tag {
     id;
@@ -15,7 +15,7 @@ export class TagStore {
     @observable tags = [];
     tagId = 0;
 
-    findOrCreateTag(name: string) {
+	@action findOrCreateTag(name: string) {
         let tag = this.tags.find(tag => tag.name === name);
         if (tag)
             return tag;
