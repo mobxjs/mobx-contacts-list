@@ -1,4 +1,4 @@
-import {observable, when, autorun, action, computed} from 'mobx';
+import {observable, when, autorun, action, createTransformer} from 'mobx';
 import {isContact} from './contact-store';
 import {isTag} from './tag-store';
 
@@ -38,9 +38,8 @@ export class ViewState {
 		})
 	}
 
-	isSelected(contact) {
-		return computed(() => this.selection === contact).get();
-	}
+	// createTransformer creates a computed expression per contact and memoizes it
+	isSelected = createTransformer(contact => this.selection === contact);
 
 	@action	selectContact = (contact) => {
 		this.selection = contact;
