@@ -87,7 +87,7 @@ export class ContactView extends React.Component {
 	}
 
 	@action	onCancel = () => {
-		this.resetInputValues();
+		this.resetInputValues(this.props);
 	}
 
 	getAvailableTags = () => this.props.contact.getAvailableTags().map(tag => tag.name);
