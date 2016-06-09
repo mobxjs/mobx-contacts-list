@@ -5,13 +5,11 @@
 
 import React from 'react';
 import {observer} from 'mobx-react';
-import MuiThemeProvider from 'material-ui/lib/MuiThemeProvider';
-import getMuiTheme from 'material-ui/lib/styles/getMuiTheme';
-import {deepOrange500} from 'material-ui/lib/styles/colors';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import {deepOrange500} from 'material-ui/styles/colors';
 import DevTools from 'mobx-react-devtools';
-import Card from 'material-ui/lib/card/card';
-import CardActions from 'material-ui/lib/card/card-actions';
-import CardTitle from 'material-ui/lib/card/card-title';
+import {Card, CardActions, CardTitle} from 'material-ui/Card';
 
 import {ViewState} from '../stores/view-state';
 import {isTag} from '../stores/tag-store';

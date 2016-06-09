@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {observer} from 'mobx-react';
 
-import ListItem from 'material-ui/lib/lists/list-item';
-import Avatar from 'material-ui/lib/avatar';
+import {ListItem} from 'material-ui/List';
+import Avatar from 'material-ui/Avatar';
 
 const ContactEntryView = ({contact, viewState}) => (
 	<ListItem

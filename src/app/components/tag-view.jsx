@@ -5,31 +5,42 @@
 
 import React from 'react';
 import {observer} from 'mobx-react';
-import {action} from 'mobx';
-import Card from 'material-ui/lib/card/card';
-import CardTitle from 'material-ui/lib/card/card-title';
-import CardText from 'material-ui/lib/card/card-text';
-import TextField from 'material-ui/lib/text-field';
+import {action, observable} from 'mobx';
+import {Card, CardTitle, CardText} from 'material-ui/Card';
+import TextField from 'material-ui/TextField';
 
 @observer
 export class TagView extends React.Component {
+	@observable tag;
+
+	componentWillMount() {
+		this.resetTag(this.props);
+	}
+
+	componentWillReceiveProps(newProps) {
+		this.resetTag(newProps);
+	}
+
 	render() {
-		const {tag} = this.props;
 		return <Card>
 			<CardTitle
-				title={`Tag ${tag.name}`}
+				title={`Tag ${this.tag.name}`}
 				/>
 			<CardText>
 				<TextField
 					floatingLabelText="Tag name"
-					value={tag.name}
+					value={this.tag.name}
 					onChange={this.onChangeTagName}
 					/>
 			</CardText>
 		</Card>
 	}
 
+	@action resetTag(props) {
+		this.tag = props.tag;
+	}
+
 	@action	onChangeTagName = (e) => {
-		tag.name = e.target.value;
+		this.tag.name = e.target.value;
 	}
 }

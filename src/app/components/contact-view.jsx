@@ -6,14 +6,11 @@
 import React from 'react';
 import {observable, action} from 'mobx';
 import {observer} from 'mobx-react';
-import FlatButton from 'material-ui/lib/flat-button';
-import Avatar from 'material-ui/lib/avatar';
-import Card from 'material-ui/lib/card/card';
-import CardActions from 'material-ui/lib/card/card-actions';
-import CardTitle from 'material-ui/lib/card/card-title';
-import CardText from 'material-ui/lib/card/card-text';
-import TextField from 'material-ui/lib/text-field';
-import AutoComplete from 'material-ui/lib/auto-complete';
+import FlatButton from 'material-ui/FlatButton';
+import Avatar from 'material-ui/Avatar';
+import {Card, CardActions, CardTitle, CardText} from 'material-ui/Card';
+import TextField from 'material-ui/TextField';
+import AutoComplete from 'material-ui/AutoComplete';
 
 @observer
 export class ContactView extends React.Component {

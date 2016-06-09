@@ -1,9 +1,8 @@
 import React from 'react';
 import {observer} from 'mobx-react';
 
-import List from 'material-ui/lib/lists/list';
-import ListItem from 'material-ui/lib/lists/list-item';
-import Subheader from 'material-ui/lib/Subheader';
+import {List, ListItem} from 'material-ui/List';
+import Subheader from 'material-ui/Subheader';
 
 const TagOverviewEntry = observer(({tag, viewState}) => <ListItem
 	primaryText={tag.name}

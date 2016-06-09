@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import {observer} from 'mobx-react';
 
-import List from 'material-ui/lib/lists/list';
-import Subheader from 'material-ui/lib/Subheader';
-import RefreshIndicator from 'material-ui/lib/refresh-indicator';
-import RaisedButton from 'material-ui/lib/raised-button';
+import List from 'material-ui/List';
+import Subheader from 'material-ui/Subheader';
+import RefreshIndicator from 'material-ui/RefreshIndicator';
+import RaisedButton from 'material-ui/RaisedButton';
 
 import ContactEntryView from './contact-entry-view';
 
