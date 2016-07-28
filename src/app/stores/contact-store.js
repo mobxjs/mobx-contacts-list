@@ -28,6 +28,7 @@ class Contact {
 		this.lastName = name.last;
 		this.username = username;
 		this.picture = picture;
+		this.autoSave = false;
 
 		// automatically store item in local storage, debounce each second
 		this._saveHandle = autorunAsync(() => {
@@ -62,12 +63,20 @@ class Contact {
 		this.tags.push(this.store.tagStore.findOrCreateTag(name));
 	}
 
+	@action	deleteTag(name) {
+		this.tags.remove(this.store.tagStore.findOrCreateTag(name));
+	}
+
 	@action	updateFirstName(firstName) {
 		this.firstName = firstName;
 	}
 
 	@action	updateLastName(lastName) {
 		this.lastName = lastName;
+	}
+
+	@action	updateAutoSave(autoSave) {
+		this.autoSave = autoSave;
 	}
 
 	@action	delete() {
@@ -138,6 +147,10 @@ export class ContactStore {
 
 	findContactByName(name) {
 		return this.contacts.find(contact => contact.username === name);
+	}
+
+	deleteTag(name) {
+		this.contacts.map(e => e.deleteTag(name));
 	}
 
 }

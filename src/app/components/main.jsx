@@ -46,7 +46,7 @@ class Main extends React.Component {
 							viewState={viewState}
 					  />;
 		} else if (isTag(viewState.selection)) {
-			content = <TagView tag={viewState.selection} />;
+			content = <TagView tag={viewState.selection} viewState={viewState} contactStore={contactStore} tagStore={tagStore} />;
 		} else {
 			content = <span>"Please select a contact or tag"</span>
 		}

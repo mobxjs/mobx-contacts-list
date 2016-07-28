@@ -9,6 +9,7 @@ import {observer} from 'mobx-react';
 import FlatButton from 'material-ui/FlatButton';
 import Avatar from 'material-ui/Avatar';
 import {Card, CardActions, CardTitle, CardText} from 'material-ui/Card';
+import Toggle from 'material-ui/Toggle';
 import TextField from 'material-ui/TextField';
 import AutoComplete from 'material-ui/AutoComplete';
 
@@ -16,6 +17,7 @@ import AutoComplete from 'material-ui/AutoComplete';
 export class ContactView extends React.Component {
 	@observable firstNameValue;
 	@observable lastNameValue;
+	@observable autoSave;
 	@observable tagId = 0; // AutoComplete has no reset api, abuse react keys..
 
 	componentWillMount() {
@@ -32,6 +34,9 @@ export class ContactView extends React.Component {
 			<CardTitle
 				title={contact.displayName}
 				subtitle={contact.username}
+				children={<span style={{ float: "left", marginLeft: "43%" }}>
+					Auto Save: <Toggle style={{ width: "auto", float: "right" }} defaultToggled={contact.autoSave} onToggle={this.onToggle} />
+				</span>}
 			/>
 			<CardText>
 				<Avatar src={contact.picture.large} size={120} />
@@ -60,17 +65,24 @@ export class ContactView extends React.Component {
 			<CardActions>
 				<FlatButton label="Delete" onClick={this.onDelete} />
 				<FlatButton label="Cancel" onClick={this.onCancel} />
-				<FlatButton label="Save" primary={true} onClick={this.onSave} />
+				<FlatButton label="Save" primary={true} onClick={this.onSave} disabled={this.autoSave} />
 			</CardActions>
 		</Card>
 	}
 
 	@action	onChangeFirstName = (e) => {
 		this.firstNameValue = e.target.value;
+		this.autoSave && this.onSave();
 	}
 
 	@action	onChangeLastName = (e) => {
 		this.lastNameValue = e.target.value;
+		this.autoSave && this.onSave();
+	}
+
+	@action	onToggle = (e, disabled) => {
+		this.autoSave = disabled;
+		this.onSave();
 	}
 
 	@action	onDelete = () => {
@@ -81,6 +93,7 @@ export class ContactView extends React.Component {
 	@action	onSave = () => {
 		this.props.contact.updateFirstName(this.firstNameValue);
 		this.props.contact.updateLastName(this.lastNameValue);
+		this.props.contact.updateAutoSave(this.autoSave);
 	}
 
 	@action	onCancel = () => {
@@ -90,13 +103,15 @@ export class ContactView extends React.Component {
 	getAvailableTags = () => this.props.contact.getAvailableTags().map(tag => tag.name);
 
 	@action	onSelectTag = (value) => {
-		this.props.contact.addTag(value); 
+		this.props.contact.addTag(value);
+		this.autoSave && this.onSave();
 		this.tagId++;
 	}
 
 	@action	resetInputValues(props) {
 		this.firstNameValue = props.contact.firstName;
 		this.lastNameValue = props.contact.lastName;
+		this.autoSave = props.contact.autoSave;
 		this.tagId++;
 	}
 }

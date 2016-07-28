@@ -27,6 +27,10 @@ export class TagStore {
     findTagByName(name) {
         return this.tags.find(tag => tag.name === name);
     }
+
+    deleteTag(tag) {
+        return this.tags.remove(tag);
+    }
 }
 
 export function isTag(object) {
