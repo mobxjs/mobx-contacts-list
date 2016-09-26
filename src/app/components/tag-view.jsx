@@ -6,7 +6,8 @@
 import React from 'react';
 import {observer} from 'mobx-react';
 import {action, observable} from 'mobx';
-import {Card, CardTitle, CardText} from 'material-ui/Card';
+import FlatButton from 'material-ui/FlatButton';
+import {Card, CardActions, CardTitle, CardText} from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
 
 @observer
@@ -32,6 +33,9 @@ export class TagView extends React.Component {
 					value={this.tag.name}
 					onChange={this.onChangeTagName}
 					/>
+				<CardActions>
+					<FlatButton label="Delete" onClick={this.onDelete} />
+				</CardActions>
 			</CardText>
 		</Card>
 	}
@@ -42,5 +46,12 @@ export class TagView extends React.Component {
 
 	@action	onChangeTagName = (e) => {
 		this.tag.name = e.target.value;
+	}
+
+	@action	onDelete = () => {
+		const {viewState, contactStore, tagStore} = this.props;
+		viewState.selectNothing();
+		contactStore.deleteTag(this.tag.name);
+		tagStore.deleteTag(this.tag);
 	}
 }
